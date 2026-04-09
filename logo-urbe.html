@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>URBE</title>
+	<style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		ol li:hover {
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		ol {
+			line-height: 1.5em;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			padding-top: 170px;
+			zoom: 1.5
+		}
+
+
+		.column {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.fixed {
+			position: fixed;
+			top: 50px;
+			left: 50px;
+		}
+	</style>
+</head>
+
+<body id="body">
+
+	<div class="fixed">
+		<ol>
+			<li onclick="setSong('Viva la vida')">Viva la vida</li>
+			<li onclick="setSong('Yes')">Yes</li>
+			<li onclick="setSong('42')">42</li>
+			<li onclick="setSong('Cementeries of London')">Cementeries of London</li>
+			<li onclick="setSong('Death and all his friends')">Death and all his friends</li>
+			<li onclick="setSong('Life in technicolor')">Life in technicolor</li>
+			<li onclick="setSong('Lost!')">Lost!</li>
+			<li onclick="setSong('Lovers in Japan')">Lovers in Japan</li>
+			<li onclick="setSong('Strawberry Swing')">Strawberry Swing</li>
+			<li onclick="setSong('Violet Hill')">Violet Hill</li>
+		</ol>
+	</div>
+	<div class="column">
+		<canvas id="canvas" width="1000" height="400"></canvas>
+		<audio id="musicPlayer" controls
+			src="./viva_la_vida_or_death_and_all_his_friends/Viva La Vida [zOQ4ld6NsXE].mp3" type="audio/mp3">
+		</audio>
+	</div>
+
+	<script type="text/javascript">
+		// const colors = ['blue','red','green', 'yellow', 'purple']
+		// let index = 0
+
+		// const getIndex = () => {
+		// 	const i = index;
+		// 	index++;
+		// 	if (index === colors.length) index = 0
+		// 	return i
+		// }
+
+		const songs = new Map();
+		songs.set('Viva la vida', './viva_la_vida_or_death_and_all_his_friends/Viva La Vida [zOQ4ld6NsXE].mp3')
+		songs.set('Yes', './viva_la_vida_or_death_and_all_his_friends/Yes [V4qdbGcFBxw].mp3')
+		songs.set('42', './viva_la_vida_or_death_and_all_his_friends/42 [ez6eauLcOuc].mp3')
+		songs.set('Cementeries of London', './viva_la_vida_or_death_and_all_his_friends/Cemeteries of London [v6gxuxw69z0].mp3')
+		songs.set('Death and all his friends', './viva_la_vida_or_death_and_all_his_friends/Death and All His Friends [QvoM6TK8O6w].mp3')
+		songs.set('Life in technicolor', './viva_la_vida_or_death_and_all_his_friends/Life in Technicolor [sPD59NTahc0].mp3')
+		songs.set('Lost!', './viva_la_vida_or_death_and_all_his_friends/Lost! [B5KjwuD3hEg].mp3')
+		songs.set('Lovers in Japan', './viva_la_vida_or_death_and_all_his_friends/Lovers in Japan [A3hiqF3goTU].mp3')
+		songs.set('Strawberry Swing', './viva_la_vida_or_death_and_all_his_friends/Strawberry Swing [H84ia4pR2PI].mp3')
+		songs.set('Violet Hill', './viva_la_vida_or_death_and_all_his_friends/Violet Hill [7ENiDNrBj2g].mp3')
+
+		const songsPositions = ['Viva la vida', 'Yes', '42', 'Cementeries of London', 'Death and all his friends', 'Life in technicolor', 'Lost!', 'Lovers in Japan', 'Strawberry Swing', 'Violet Hill']
+
+		const getRandomColorValue = () => Math.floor(Math.random() * 256)
+
+		const setColor = () => {
+			const body = document.getElementById("body")
+			const randomColor = `rgb(${getRandomColorValue()},${getRandomColorValue()},${getRandomColorValue()})`
+			// body.style = `background-color: ${colors[getIndex()]}`
+			body.style = `background-color: ${randomColor}`
+		}
+
+		const setSong = (song) => {
+			const musicPlayer = document.getElementById("musicPlayer")
+			const songPath = songs.get(song)
+			musicPlayer.src = songPath
+			const lis = document.getElementsByTagName('li')
+			const list = Array.prototype.slice.call(lis)
+			list.map(li => li.style = "font-weight: normal")
+			list[songsPositions.indexOf(song)].style = "font-weight: bold"
+			musicPlayer.play()
+		}
+
+		const time = 1000
+
+		const draw = async () => {
+		var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+
+			//URB
+			await delay(time)
+			setColor()
+			ctx.beginPath();
+			ctx.fillStyle = "rgb(153,0,0)";
+			ctx.moveTo(400, 210);
+			ctx.lineTo(395, 230);
+			ctx.lineTo(418, 278);
+			ctx.lineTo(462, 278);
+			ctx.lineTo(442, 228);
+			ctx.lineTo(480, 228);
+
+			ctx.quadraticCurveTo(485, 232, 480, 235);
+
+			ctx.lineTo(452, 235);
+			ctx.lineTo(458, 253);
+			ctx.lineTo(466, 253);
+			ctx.lineTo(477, 278);
+			ctx.lineTo(554, 278);
+
+			ctx.quadraticCurveTo(577, 260, 554, 232);
+			ctx.quadraticCurveTo(560, 215, 543, 210);
+			ctx.lineTo(498, 210);
+
+			ctx.quadraticCurveTo(505, 218, 506, 228);
+			ctx.lineTo(533, 228);
+
+			ctx.quadraticCurveTo(538, 232, 533, 235);
+			ctx.lineTo(506, 235);
+
+			ctx.quadraticCurveTo(506, 247, 499, 253);
+			ctx.lineTo(542, 253);
+
+			ctx.quadraticCurveTo(547, 257, 542, 260);
+			ctx.lineTo(487, 260);
+			ctx.lineTo(485, 255);
+
+			ctx.quadraticCurveTo(510, 233, 485, 210);
+			ctx.lineTo(485, 210);
+			ctx.lineTo(426, 210);
+			ctx.lineTo(422, 228);
+			ctx.lineTo(435, 260);
+			ctx.lineTo(425, 260);
+			ctx.lineTo(413, 230);
+			ctx.lineTo(418, 210);
+
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+
+			//PARTE INFERIOR DE LA 'E'
+			ctx.beginPath();
+			ctx.fillStyle = "rgb(153,0,0)";
+			ctx.moveTo(564, 278);
+			ctx.lineTo(595, 278);
+			ctx.lineTo(610, 260);
+			ctx.lineTo(574, 260);
+			ctx.quadraticCurveTo(573, 272, 564, 278);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+
+			//PARTE SUPERIOR DE LA 'E'
+			ctx.beginPath();
+			ctx.fillStyle = "rgb(153,0,0)";
+			ctx.moveTo(574, 253);
+			ctx.lineTo(611, 253);
+			ctx.lineTo(611, 235);
+			ctx.lineTo(580, 235);
+			ctx.quadraticCurveTo(575, 232, 580, 228);
+			ctx.lineTo(611, 228);
+			ctx.lineTo(611, 210);
+			ctx.lineTo(572, 210);
+			ctx.quadraticCurveTo(557, 224, 572, 245);
+			ctx.quadraticCurveTo(575, 248, 574, 253);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			//GLOBO
+			ctx.beginPath();
+			ctx.strokeStyle = "rgb(0, 43, 153)";
+			ctx.lineWidth = 3;
+			ctx.lineCap = 'round';
+			// ctx.moveTo(410, 200);
+			//r=105, a=65, ang= 210
+			ctx.arc(500, 150, (500 - 395), (Math.PI / 180) * 151, (Math.PI / 180) * 29);
+			ctx.closePath();
+			ctx.stroke();
+			await delay(time)
+			setColor()
+
+			//INTERNO DEL GLOBO //16,88
+
+			ctx.moveTo(500, 150);
+			ctx.lineTo(500, 45);
+			ctx.moveTo(500, 150);
+			ctx.lineTo(500, 200);
+
+			ctx.moveTo(500, 180);
+			ctx.lineTo(600, 180);
+			ctx.moveTo(500, 180);
+			ctx.lineTo(400, 180);
+
+			ctx.moveTo(500, 163);
+			ctx.lineTo(602, 163);
+			ctx.moveTo(500, 163);
+			ctx.lineTo(398, 163);
+
+			ctx.moveTo(500, 146);
+			ctx.lineTo(605, 146);
+			ctx.moveTo(500, 146);
+			ctx.lineTo(395, 145);
+
+			ctx.moveTo(500, 129);
+			ctx.lineTo(600, 129);
+			ctx.moveTo(500, 129);
+			ctx.lineTo(400, 129);
+
+			ctx.moveTo(500, 112);
+			ctx.lineTo(595, 112);
+			ctx.moveTo(500, 112);
+			ctx.lineTo(405, 112);
+
+			ctx.moveTo(500, 95);
+			ctx.lineTo(590, 95);
+			ctx.moveTo(500, 95);
+			ctx.lineTo(410, 95);
+
+			ctx.moveTo(500, 78);
+			ctx.lineTo(575, 78);
+			ctx.moveTo(500, 78);
+			ctx.lineTo(425, 78);
+
+			ctx.moveTo(500, 61);
+			ctx.lineTo(555, 61);
+			ctx.moveTo(500, 61);
+			ctx.lineTo(445, 61);
+
+			ctx.moveTo(422, 200);
+			ctx.quadraticCurveTo(390, 80, 500, 45);
+
+			ctx.moveTo(448, 200);
+			ctx.quadraticCurveTo(415, 100, 500, 45);
+
+			ctx.moveTo(474, 200);
+			ctx.quadraticCurveTo(450, 120, 500, 45);
+
+			ctx.moveTo(526, 200);
+			ctx.quadraticCurveTo(550, 120, 500, 45);
+
+			ctx.moveTo(552, 200);
+			ctx.quadraticCurveTo(585, 100, 500, 45);
+
+			ctx.moveTo(578, 200);
+			ctx.quadraticCurveTo(610, 80, 500, 45);
+			ctx.stroke()
+			await delay(time)
+			setColor()
+
+			//EDIFICIOS
+
+			ctx.fillStyle = 'white';
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.moveTo(442, 200);
+			ctx.lineTo(442, 160);
+			ctx.lineTo(451, 150);
+			ctx.lineTo(460, 160);
+			ctx.lineTo(460, 200);
+			ctx.closePath();
+			ctx.stroke();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(472, 200);
+			ctx.lineTo(472, 135);
+			ctx.lineTo(485, 122);
+			ctx.lineTo(498, 135);
+			ctx.lineTo(498, 200);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(502, 200);
+			ctx.lineTo(502, 160);
+			ctx.lineTo(512, 150);
+			ctx.lineTo(522, 160);
+			ctx.lineTo(522, 200);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(525, 200);
+			ctx.lineTo(525, 145);
+			ctx.lineTo(533, 135);
+			ctx.lineTo(541, 145);
+			ctx.lineTo(541, 200);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(545, 200);
+			ctx.lineTo(545, 160);
+			ctx.lineTo(553, 150);
+			ctx.lineTo(562, 160);
+			ctx.lineTo(562, 200);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+			await delay(time)
+			setColor()
+
+			//PARTE AZUL DE LAS TORRES
+			ctx.fillStyle = "rgb(0, 43, 153)";
+			ctx.beginPath();
+			ctx.moveTo(450, 200);
+			ctx.lineTo(450, 172);
+			ctx.lineTo(460, 160);
+			ctx.lineTo(460, 200);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(485, 200);
+			ctx.lineTo(485, 148);
+			ctx.lineTo(498, 135);
+			ctx.lineTo(498, 200);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(512, 200);
+			ctx.lineTo(512, 172);
+			ctx.lineTo(522, 160);
+			ctx.lineTo(522, 200);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(533, 200);
+			ctx.lineTo(533, 155);
+			ctx.lineTo(541, 145);
+			ctx.lineTo(541, 200);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.beginPath();
+			ctx.moveTo(553, 200);
+			ctx.lineTo(553, 172);
+			ctx.lineTo(562, 160);
+			ctx.lineTo(562, 200);
+			ctx.closePath();
+			ctx.fill();
+			await delay(time)
+			setColor()
+
+			ctx.clearRect(0, 0, 1000, 400)
+		}
+
+		const delay = ms => new Promise(res => setTimeout(res, ms));
+
+		// draw()
+		
+		const keepDrawing = async () => {
+			while (true) {
+				await draw()
+				await delay(time)
+			}
+		}
+		keepDrawing()
+
+	</script>
+</body>
+
+</html>
